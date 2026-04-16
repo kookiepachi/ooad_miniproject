@@ -129,6 +129,15 @@ public class DeliveryService {
 
         // Update corresponding timestamps
         switch(newStatus) {
+            case PENDING:
+                // Order is pending
+                break;
+            case CONFIRMED:
+                // Order confirmed
+                break;
+            case PACKING:
+                // Order is being packed
+                break;
             case PACKED:
                 // Order packed and ready for pickup
                 break;
@@ -138,6 +147,12 @@ public class DeliveryService {
             case DELIVERED:
                 delivery.setDeliveredAt(LocalDateTime.now());
                 delivery.getOrder().setActualDeliveryTime(LocalDateTime.now());
+                break;
+            case CANCELLED:
+                // Order cancelled
+                break;
+            case RETURNED:
+                // Order returned
                 break;
         }
 

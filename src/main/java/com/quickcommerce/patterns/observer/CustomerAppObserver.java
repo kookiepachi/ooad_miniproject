@@ -20,11 +20,17 @@ public class CustomerAppObserver implements OrderObserver {
 
     private void handleStatusTransition(Order order, OrderStatus newStatus) {
         switch(newStatus) {
+            case PENDING:
+                System.out.println("[CustomerApp] Order is pending confirmation.");
+                break;
             case CONFIRMED:
                 System.out.println("[CustomerApp] Order confirmed! Your order will be packed soon.");
                 break;
             case PACKING:
                 System.out.println("[CustomerApp] Your order is being packed.");
+                break;
+            case PACKED:
+                System.out.println("[CustomerApp] Your order has been packed.");
                 break;
             case OUT_FOR_DELIVERY:
                 System.out.println("[CustomerApp] Your order is on the way!");
@@ -34,6 +40,9 @@ public class CustomerAppObserver implements OrderObserver {
                 break;
             case CANCELLED:
                 System.out.println("[CustomerApp] Your order has been cancelled.");
+                break;
+            case RETURNED:
+                System.out.println("[CustomerApp] Your order has been returned.");
                 break;
         }
     }

@@ -71,7 +71,10 @@ public class UserService {
         LoginResponse response = new LoginResponse();
         response.token = token;
         UserDTO userDTO = convertToDTO(user);
-        response.user = (userDTO != null) ? userDTO.getEmail() : "Unknown";
+        response.userId = user.getUserId();
+        response.email = user.getEmail();
+        response.user = (userDTO != null) ? userDTO.getFullName() : "Unknown";
+        response.userRole = userDTO != null ? userDTO.getRole() : null;
         response.message = "Login successful!";
         return response;
     }

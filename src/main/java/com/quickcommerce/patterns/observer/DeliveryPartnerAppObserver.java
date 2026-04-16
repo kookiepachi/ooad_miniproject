@@ -22,8 +22,14 @@ public class DeliveryPartnerAppObserver implements OrderObserver {
 
     private void handleDeliveryTransition(Order order, OrderStatus status) {
         switch(status) {
+            case PENDING:
+                System.out.println("[DeliveryPartnerApp] Order is pending.");
+                break;
             case CONFIRMED:
                 System.out.println("[DeliveryPartnerApp] New order confirmed. Will be assigned soon.");
+                break;
+            case PACKING:
+                System.out.println("[DeliveryPartnerApp] Order is being packed.");
                 break;
             case PACKED:
                 System.out.println("[DeliveryPartnerApp] Order is ready for pickup!");
@@ -33,6 +39,12 @@ public class DeliveryPartnerAppObserver implements OrderObserver {
                 break;
             case DELIVERED:
                 System.out.println("[DeliveryPartnerApp] Delivery completed. Thank you!");
+                break;
+            case CANCELLED:
+                System.out.println("[DeliveryPartnerApp] Order has been cancelled.");
+                break;
+            case RETURNED:
+                System.out.println("[DeliveryPartnerApp] Order has been returned.");
                 break;
         }
     }

@@ -2,6 +2,7 @@ package com.quickcommerce.controller;
 
 import com.quickcommerce.entity.Cart;
 import com.quickcommerce.entity.User;
+import com.quickcommerce.repository.UserRepository;
 import com.quickcommerce.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +21,22 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    private User getUserOrThrow(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+    }
+
     /**
      * Get user cart
      */
     @GetMapping("/{userId}")
     public ResponseEntity<?> getCart(@PathVariable Long userId) {
         try {
-            // In real app, get user from authentication context
-            User mockUser = new User();
-            mockUser.setUserId(userId);
-            Cart cart = cartService.getOrCreateCart(mockUser);
+            User user = getUserOrThrow(userId);
+            Cart cart = cartService.getOrCreateCart(user);
             return ResponseEntity.ok(cart);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -44,11 +51,10 @@ public class CartController {
     public ResponseEntity<?> addToCart(
             @PathVariable Long userId,
             @PathVariable Long productId,
-            @RequestParam Integer quantity) {
+            @RequestParam(defaultValue = "1") Integer quantity) {
         try {
-            User mockUser = new User();
-            mockUser.setUserId(userId);
-            cartService.addToCart(mockUser, productId, quantity);
+            User user = getUserOrThrow(userId);
+            cartService.addToCart(user, productId, quantity);
             return ResponseEntity.ok("Item added to cart");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -61,9 +67,8 @@ public class CartController {
     @DeleteMapping("/{userId}/remove/{productId}")
     public ResponseEntity<?> removeFromCart(@PathVariable Long userId, @PathVariable Long productId) {
         try {
-            User mockUser = new User();
-            mockUser.setUserId(userId);
-            cartService.removeFromCart(mockUser, productId);
+            User user = getUserOrThrow(userId);
+            cartService.removeFromCart(user, productId);
             return ResponseEntity.ok("Item removed from cart");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -79,9 +84,8 @@ public class CartController {
             @PathVariable Long productId,
             @RequestParam Integer newQuantity) {
         try {
-            User mockUser = new User();
-            mockUser.setUserId(userId);
-            cartService.updateCartItemQuantity(mockUser, productId, newQuantity);
+            User user = getUserOrThrow(userId);
+            cartService.updateCartItemQuantity(user, productId, newQuantity);
             return ResponseEntity.ok("Quantity updated");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -94,9 +98,8 @@ public class CartController {
     @DeleteMapping("/{userId}/clear")
     public ResponseEntity<?> clearCart(@PathVariable Long userId) {
         try {
-            User mockUser = new User();
-            mockUser.setUserId(userId);
-            cartService.clearCart(mockUser);
+            User user = getUserOrThrow(userId);
+            cartService.clearCart(user);
             return ResponseEntity.ok("Cart cleared");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -109,9 +112,8 @@ public class CartController {
     @GetMapping("/{userId}/total")
     public ResponseEntity<?> getCartTotal(@PathVariable Long userId) {
         try {
-            User mockUser = new User();
-            mockUser.setUserId(userId);
-            BigDecimal total = cartService.getCartTotal(mockUser);
+            User user = getUserOrThrow(userId);
+            BigDecimal total = cartService.getCartTotal(user);
             return ResponseEntity.ok(total);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());

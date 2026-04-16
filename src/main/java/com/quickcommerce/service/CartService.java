@@ -30,7 +30,7 @@ public class CartService {
      * Get or create cart for user
      */
     public Cart getOrCreateCart(User user) {
-        return cartRepository.findByUser(user)
+        return cartRepository.findByUserUserId(user.getUserId())
                 .orElseGet(() -> {
                     Cart cart = new Cart();
                     cart.setUser(user);
@@ -70,6 +70,7 @@ public class CartService {
             CartItem cartItem = new CartItem(cart, product, quantity);
             cartItem.updatePrice();
             cartItemRepository.save(cartItem);
+            cart.getCartItems().add(cartItem);
         }
 
         cart.calculateTotal();
@@ -88,6 +89,7 @@ public class CartService {
                 .orElseThrow(() -> new RuntimeException("Item not in cart!"));
 
         cartItemRepository.delete(cartItem);
+        cart.getCartItems().remove(cartItem);
         cart.calculateTotal();
         cartRepository.save(cart);
     }

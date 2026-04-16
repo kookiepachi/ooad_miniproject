@@ -150,9 +150,15 @@ public class ProductService {
         ProductDTO dto = new ProductDTO();
         dto.productId = product.getProductId();
         dto.productName = product.getProductName();
+        dto.description = product.getDescription();
         dto.price = product.getPrice();
         dto.stock = product.getStock();
         dto.category = product.getCategory();
+        dto.subcategory = product.getSubcategory();
+        dto.imageUrl = product.getImageUrl();
+        dto.rating = product.getRating();
+        dto.reviewCount = product.getReviewCount();
+        dto.isAvailable = product.getIsAvailable();
         return dto;
     }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quick Commerce Delivery System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .section { margin: 20px 0; padding: 10px; border: 1px solid #ddd; }
+        button { padding: 10px 20px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Quick Commerce Delivery System</h1>
+
+    <div class="section">
+        <h2>User Management</h2>
+        <button onclick="location.href='/register'">Register</button>
+        <button onclick="location.href='/login'">Login</button>
+    </div>
+
+    <div class="section">
+        <h2>Products</h2>
+        <button onclick="location.href='/products'">View Products</button>
+    </div>
+
+    <div class="section">
+        <h2>Cart</h2>
+        <button onclick="location.href='/cart'">View Cart</button>
+    </div>
+
+    <div class="section">
+        <h2>Orders</h2>
+        <button onclick="location.href='/orders'">View Orders</button>
+    </div>
+
+    <div class="section">
+        <h2>Delivery</h2>
+        <button onclick="location.href='/deliveries'">View Deliveries</button>
+    </div>
+</body>
+</html>

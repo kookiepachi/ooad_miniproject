@@ -1,5 +1,6 @@
 package com.quickcommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -12,6 +13,7 @@ public class CartItem {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id", nullable = false)
+    @JsonIgnoreProperties({"cartItems", "user"})
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -4,7 +4,6 @@ import com.quickcommerce.entity.Order;
 import com.quickcommerce.enums.PaymentMethod;
 import com.quickcommerce.patterns.strategy.*;
 import org.springframework.stereotype.Service;
-import java.math.BigDecimal;
 
 /**
  * Payment Service - Processes payments using Strategy Pattern
@@ -50,12 +49,12 @@ public class PaymentService {
                 return new UPIPaymentStrategy(details[0], details[1]);
 
             case CARD:
-                // details: [cardNumber, cardHolderName, cvv, expiryDate]
-                return new CardPaymentStrategy(details[0], details[1], details[2], details[3]);
+                // details: [cardNumber, cardHolderName, cvv]
+                return new CardPaymentStrategy(details[0], details[1], details[2]);
 
             case COD:
                 // details: [deliveryAddress]
-                return new CODPaymentStrategy(details[0]);
+                return new CODPaymentStrategy(details.length > 0 ? details[0] : "");
 
             case WALLET:
                 return new WalletPaymentStrategy();
@@ -69,7 +68,14 @@ public class PaymentService {
      * Check if payment method supports refunds
      */
     public boolean supportsRefund(PaymentMethod method) {
-        PaymentStrategy strategy = getPaymentStrategy(method);
-        return strategy.supportsRefund();
+        switch (method) {
+            case CARD:
+            case UPI:
+            case WALLET:
+                return true;
+            case COD:
+            default:
+                return false;
+        }
     }
 }

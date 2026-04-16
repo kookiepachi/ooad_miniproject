@@ -5,6 +5,7 @@ import com.quickcommerce.dto.OrderDTO;
 import com.quickcommerce.entity.Order;
 import com.quickcommerce.entity.OrderTracking;
 import com.quickcommerce.entity.User;
+import com.quickcommerce.repository.UserRepository;
 import com.quickcommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    private User getUserOrThrow(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+    }
+
     /**
      * Create order from cart
      * Feature: Order Processing with price calculation (discounts, taxes, delivery charges)
@@ -33,9 +42,8 @@ public class OrderController {
             @RequestParam Long userId,
             @RequestBody CheckoutRequest checkoutRequest) {
         try {
-            User mockUser = new User();
-            mockUser.setUserId(userId);
-            Order order = orderService.createOrderFromCart(mockUser, checkoutRequest);
+            User user = getUserOrThrow(userId);
+            Order order = orderService.createOrderFromCart(user, checkoutRequest);
             return ResponseEntity.ok("Order created successfully. Tracking: " + order.getTrackingNumber());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -62,9 +70,8 @@ public class OrderController {
     @GetMapping("/history/{userId}")
     public ResponseEntity<?> getOrderHistory(@PathVariable Long userId) {
         try {
-            User mockUser = new User();
-            mockUser.setUserId(userId);
-            List<OrderDTO> orders = orderService.getOrderHistory(mockUser);
+            User user = getUserOrThrow(userId);
+            List<OrderDTO> orders = orderService.getOrderHistory(user);
             return ResponseEntity.ok(orders);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());

@@ -2,7 +2,6 @@ package com.quickcommerce.service;
 
 import com.quickcommerce.entity.Discount;
 import com.quickcommerce.entity.Order;
-import com.quickcommerce.enums.DiscountType;
 import com.quickcommerce.repository.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

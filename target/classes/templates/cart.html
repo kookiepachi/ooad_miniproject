@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cart</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="item : ${cartItems}">
+            <td th:text="${item.product.productName}">Product</td>
+            <td th:text="${item.quantity}">Qty</td>
+            <td th:text="${item.totalPrice}">Price</td>
+            <td><button>Remove</button></td>
+        </tr>
+    </table>
+    <p>Total: <span th:text="${total}">0</span></p>
+    <button>Checkout</button>
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

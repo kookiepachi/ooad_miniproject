@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orders</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .order { border: 1px solid #ddd; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Your Orders</h1>
+    <div th:each="order : ${orders}" class="order">
+        <p>Order ID: <span th:text="${order.orderId}">ID</span></p>
+        <p>Status: <span th:text="${order.status}">Status</span></p>
+        <p>Total: <span th:text="${order.totalAmount}">Total</span></p>
+    </div>
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

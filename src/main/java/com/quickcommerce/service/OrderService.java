@@ -26,9 +26,6 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private OrderItemRepository orderItemRepository;
-
-    @Autowired
     private CartService cartService;
 
     @Autowired
@@ -42,9 +39,6 @@ public class OrderService {
 
     @Autowired
     private OrderTrackingRepository orderTrackingRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     private OrderSubject orderSubject = new OrderSubject();
 
@@ -236,8 +230,29 @@ public class OrderService {
     public OrderDTO convertToDTO(Order order) {
         OrderDTO dto = new OrderDTO();
         dto.orderId = order.getOrderId();
+        dto.userId = order.getCustomer() != null ? order.getCustomer().getUserId() : null;
+        dto.subtotal = order.getSubtotal();
+        dto.discountAmount = order.getDiscountAmount();
+        dto.deliveryCharge = order.getDeliveryCharge();
         dto.totalAmount = order.getTotalAmount();
+        dto.estimatedDeliveryFee = order.getDeliveryCharge();
         dto.orderStatus = order.getOrderStatus().toString();
+        dto.paymentMethod = order.getPaymentMethod() != null ? order.getPaymentMethod().toString() : null;
+        dto.deliveryAddress = order.getDeliveryAddress();
+        dto.deliveryCity = order.getDeliveryCity();
+        dto.deliveryZipCode = order.getDeliveryZipCode();
+        dto.trackingNumber = order.getTrackingNumber();
+        dto.createdAt = order.getCreatedAt() != null ? order.getCreatedAt().toString() : null;
+        dto.specialInstructions = order.getSpecialInstructions();
+        dto.deliveryPartnerId = order.getDeliveryPartner() != null ? order.getDeliveryPartner().getUserId() : null;
+        dto.items = order.getOrderItems().stream().map(item -> {
+            java.util.Map<String, Object> itemMap = new java.util.HashMap<>();
+            itemMap.put("productName", item.getProduct() != null ? item.getProduct().getProductName() : "");
+            itemMap.put("quantity", item.getQuantity());
+            itemMap.put("priceAtTime", item.getPriceAtTime());
+            itemMap.put("totalPrice", item.getTotalPrice());
+            return itemMap;
+        }).toList();
         return dto;
     }
 
