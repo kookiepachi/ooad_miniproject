@@ -2,482 +2,220 @@
 
 ## Project Overview
 
-This is a **comprehensive Java Spring Boot application** implementing an online delivery system (like Zepto - Quick Commerce) following **Object-Oriented Analysis and Design (OOAD) principles**. The project is designed for **4 team members** with each managing a distinct module with one major and one minor feature.
+This project is a Java Spring Boot application for a quick-commerce delivery platform. It is structured as an OOAD mini project and demonstrates MVC architecture, layered design, REST APIs, and multiple design patterns.
+
+The system covers:
+
+- user registration and login
+- product browsing and search
+- cart and order management
+- delivery tracking
+- wallet operations
+
+## Tech Stack
+
+- Java 17
+- Spring Boot 3.1.5
+- Spring Web
+- Spring Data JPA
+- Spring Security
+- Thymeleaf
+- H2 database for local development
+- MySQL driver included for future or alternate database setup
+- Maven
+
+## Current Runtime Behavior
+
+- The application runs locally with an in-memory H2 database by default.
+- Database schema is recreated on startup because `spring.jpa.hibernate.ddl-auto=create-drop` is enabled.
+- The H2 console is available at `http://localhost:8080/h2-console`.
+- All routes are currently permitted by the active security configuration.
+- JWT-related code exists, but request authorization is not currently enforced by Spring Security.
 
 ## Project Highlights
 
-- ✅ **Spring Boot 3.1.5** with MVC Architecture
-- ✅ **RESTful APIs** with JWT Authentication
-- ✅ **MySQL Database** with optimal schema
-- ✅ **Design Patterns** (Factory, Proxy, Strategy, Observer)
-- ✅ **SOLID Principles** (SRP, OCP, LSP, DIP, ISP)
-- ✅ **Role-Based Access Control** (RBAC)
-- ✅ **Real-time Order Tracking** with Observer Pattern
-- ✅ **Multiple Payment Methods** with Strategy Pattern
+- Spring Boot MVC architecture
+- REST endpoints for all core modules
+- Layered structure with controllers, services, repositories, DTOs, and entities
+- Design patterns: Factory, Proxy, Strategy, Observer
+- Local web UI pages served from static resources
+- Sample seed data added at startup
 
----
-
-## Team Division & Module Allocation
-
-### **Team Structure (4 Members)**
+## Team Division
 
 | Member | Module | Major Feature | Minor Feature |
 |--------|--------|---------------|---------------|
-| **Member 1** | Inventory & Catalog | Stock Management (Real-time, Out-of-Stock Logic, Category Filtering) | Search & Suggestions |
-| **Member 2** | Order & Cart | Order Processing (Cart Logic, Price Calculation, Checkout Flow) | Order History & Re-ordering |
-| **Member 3** | Delivery & Tracking | Dispatch System (Partner Assignment, ETA Calculation) | Live Status Updates |
-| **Member 4** | User & Profile | Authentication & RBAC (Multi-role Login) | Wallet/Payments |
-
----
+| Member 1 | Inventory and Catalog | Stock management | Search and suggestions |
+| Member 2 | Order and Cart | Order processing | Order history and re-ordering |
+| Member 3 | Delivery and Tracking | Dispatch system | Live status updates |
+| Member 4 | User and Profile | Authentication and roles | Wallet and payments |
 
 ## Project Structure
 
+```text
+ooad_mini_projk/
+|- src/main/java/com/quickcommerce/
+|  |- DeliverySystemApplication.java
+|  |- config/
+|  |- controller/
+|  |- dto/
+|  |- entity/
+|  |- enums/
+|  |- patterns/
+|  |- repository/
+|  `- service/
+|- src/main/resources/
+|  |- application.properties
+|  |- static/
+|  `- templates/
+|- DATABASE_SCHEMA.sql
+|- pom.xml
+|- run-local.bat
+`- README.md
 ```
-ooad-mini-project/
-├── src/
-│   ├── main/
-│   │   ├── java/com/quickcommerce/
-│   │   │   ├── DeliverySystemApplication.java          # Main Spring Boot App
-│   │   │   ├── controller/                             # REST Controllers
-│   │   │   │   ├── UserController.java                 # Module 4
-│   │   │   │   ├── ProductController.java              # Module 1
-│   │   │   │   ├── CartController.java                 # Module 2
-│   │   │   │   ├── OrderController.java                # Module 2
-│   │   │   │   ├── DeliveryController.java             # Module 3
-│   │   │   │   └── WalletController.java               # Module 4
-│   │   │   ├── service/                                # Business Logic (Services)
-│   │   │   │   ├── UserService.java
-│   │   │   │   ├── ProductService.java
-│   │   │   │   ├── CartService.java
-│   │   │   │   ├── OrderService.java
-│   │   │   │   ├── DiscountService.java
-│   │   │   │   ├── PaymentService.java
-│   │   │   │   ├── DeliveryService.java
-│   │   │   │   ├── WalletService.java
-│   │   │   │   └── JwtService.java
-│   │   │   ├── entity/                                 # JPA Entities
-│   │   │   │   ├── User.java
-│   │   │   │   ├── Product.java
-│   │   │   │   ├── Order.java
-│   │   │   │   ├── OrderItem.java
-│   │   │   │   ├── Cart.java
-│   │   │   │   ├── CartItem.java
-│   │   │   │   ├── Delivery.java
-│   │   │   │   ├── OrderTracking.java
-│   │   │   │   ├── Discount.java
-│   │   │   │   └── WalletTransaction.java
-│   │   │   ├── repository/                             # Spring Data JPA Repositories
-│   │   │   │   ├── UserRepository.java
-│   │   │   │   ├── ProductRepository.java
-│   │   │   │   ├── OrderRepository.java
-│   │   │   │   ├── CartRepository.java
-│   │   │   │   ├── DeliveryRepository.java
-│   │   │   │   ├── DiscountRepository.java
-│   │   │   │   └── WalletTransactionRepository.java
-│   │   │   ├── dto/                                    # Data Transfer Objects
-│   │   │   │   ├── UserDTO.java
-│   │   │   │   ├── ProductDTO.java
-│   │   │   │   ├── OrderDTO.java
-│   │   │   │   ├── CartItemDTO.java
-│   │   │   │   ├── DeliveryDTO.java
-│   │   │   │   ├── LoginRequest/Response.java
-│   │   │   │   └── CheckoutRequest.java
-│   │   │   ├── enums/                                  # Enumerations
-│   │   │   │   ├── UserRole.java
-│   │   │   │   ├── OrderStatus.java
-│   │   │   │   ├── PaymentMethod.java
-│   │   │   │   └── DiscountType.java
-│   │   │   └── patterns/                               # Design Patterns
-│   │   │       ├── factory/
-│   │   │       │   └── UserFactory.java                # Creational: Factory Method
-│   │   │       ├── proxy/
-│   │   │       │   ├── Image.java
-│   │   │       │   ├── RealImage.java
-│   │   │       │   └── ProxyImage.java                 # Structural: Proxy Pattern
-│   │   │       ├── strategy/
-│   │   │       │   ├── PaymentStrategy.java
-│   │   │       │   ├── UPIPaymentStrategy.java
-│   │   │       │   ├── CardPaymentStrategy.java
-│   │   │       │   ├── CODPaymentStrategy.java
-│   │   │       │   └── WalletPaymentStrategy.java      # Behavioral: Strategy Pattern
-│   │   │       └── observer/
-│   │   │           ├── OrderObserver.java
-│   │   │           ├── OrderSubject.java
-│   │   │           ├── CustomerAppObserver.java
-│   │   │           └── DeliveryPartnerAppObserver.java # Behavioral: Observer Pattern
-│   │   └── resources/
-│   │       └── application.properties                   # Configuration
-├── DATABASE_SCHEMA.sql                                  # MySQL Schema
-├── pom.xml                                              # Maven Dependencies
-└── README.md                                            # This file
-
-```
-
----
-
-## SOLID Principles Implementation
-
-### **1. Single Responsibility Principle (SRP)**
-
-Each service handles ONE responsibility:
-
-- `OrderService` → Only manages order operations
-- `PaymentService` → Only processes payments
-- `NotificationService` → Only sends notifications
-- `WalletService` → Only manages wallet transactions
-
-**Example:**
-```java
-@Service
-public class WalletService {
-    // ONLY handles wallet-related operations
-    public void addToWallet(User user, BigDecimal amount, String description)
-    public boolean deductFromWallet(User user, BigDecimal amount, String description)
-}
-```
-
-### **2. Open/Closed Principle (OCP)**
-
-System is **open for extension**, **closed for modification**:
-
-- **Discount Strategies** can be added without modifying existing code
-- **Payment Methods** can be extended via new Strategy classes
-- **User Types** can be added via UserFactory without changing existing logic
-
-**Example:**
-```java
-public enum DiscountType {
-    PERCENTAGE, FIXED_AMOUNT, FIRST_ORDER, SEASONAL
-}
-// New discount types can be added and handled in switch statement
-```
-
-### **3. Liskov Substitution Principle (LSP)**
-
-Subtypes are substitutable for their base types:
-
-- Both `Customer` and `PremiumCustomer` can be treated as `User`
-- All payment strategies implement `PaymentStrategy` uniformly
-- All discount types use the same interface
-
-### **4. Interface Segregation Principle (ISP)**
-
-Clients not forced to depend on unused methods:
-
-- `PaymentStrategy` interface has only payment-related methods
-- `OrderObserver` interface defines only observer operations
-
-### **5. Dependency Inversion Principle (DIP)**
-
-Depend on abstractions, not concretions:
-
-- Controllers depend on **Service interfaces**, not implementations
-- Services depend on **Repository interfaces**, not database implementations
-- Payment processing depends on **PaymentStrategy interface**, not concrete implementations
-
----
 
 ## Design Patterns Used
 
-### **1. Factory Method Pattern (Creational)**
+### 1. Factory Method
 
-**File:** `com.quickcommerce.patterns.factory.UserFactory.java`
+File: `com.quickcommerce.patterns.factory.UserFactory`
 
-**Purpose:** Create different types of users without specifying exact classes
+Used to create users based on role without exposing creation logic to callers.
 
-**Implementation:**
-```java
-User customer = UserFactory.createUser(
-    UserRole.CUSTOMER, 
-    email, password, name, phone
-);
+### 2. Proxy Pattern
 
-User deliveryPartner = UserFactory.createUser(
-    UserRole.DELIVERY_PARTNER,
-    email, password, name, phone
-);
+Files: `com.quickcommerce.patterns.proxy.*`
+
+Used to represent lazy image loading behavior.
+
+### 3. Strategy Pattern
+
+Files: `com.quickcommerce.patterns.strategy.*`
+
+Used to support multiple payment methods such as UPI, card, COD, and wallet.
+
+### 4. Observer Pattern
+
+Files: `com.quickcommerce.patterns.observer.*`
+
+Used for order status update notifications.
+
+## Local Setup
+
+### Prerequisites
+
+- Java 17 or newer
+
+You do not need MySQL for the current default local setup.
+
+### Run the application
+
+From the project folder:
+
+```powershell
+cd c:\ooad_mini_projkm\ooad_mini_projk
+.\run-local.bat
 ```
 
-**SOLID Alignment:** OCP - New user types can be added without modifying calling code
+Alternative Maven command:
 
----
-
-### **2. Proxy Pattern (Structural)**
-
-**File:** `com.quickcommerce.patterns.proxy/`
-
-**Purpose:** Lazy loading of high-resolution product images
-
-**Implementation:**
-```java
-Image lazyImage = new ProxyImage("product-image.jpg", 1024000);
-lazyImage.display(); // Loads image ONLY when accessed
-```
-
-**Benefit:** Improves performance by deferring expensive image loading
-
----
-
-### **3. Strategy Pattern (Behavioral)**
-
-**File:** `com.quickcommerce.patterns.strategy/`
-
-**Purpose:** Allow runtime switching of payment methods
-
-**Implementation:**
-```java
-PaymentStrategy strategy;
-if (paymentMethod == PaymentMethod.UPI) {
-    strategy = new UPIPaymentStrategy(upiId, pin);
-} else if (paymentMethod == PaymentMethod.CARD) {
-    strategy = new CardPaymentStrategy(cardNumber, ...);
-}
-strategy.processPayment(order, amount);
-```
-
-**Supported Methods:**
-- UPI Payment
-- Card Payment (Debit/Credit)
-- Cash on Delivery (COD)
-- Wallet Payment
-
-**SOLID Alignment:** DIP - Controllers depend on `PaymentStrategy` interface
-
----
-
-### **4. Observer Pattern (Behavioral)**
-
-**File:** `com.quickcommerce.patterns.observer/`
-
-**Purpose:** Notify multiple apps when order status changes
-
-**Implementation:**
-```java
-OrderSubject subject = new OrderSubject();
-subject.attachObserver(new CustomerAppObserver());
-subject.attachObserver(new DeliveryPartnerAppObserver());
-
-// When order status changes:
-subject.notifyObservers(order, oldStatus, newStatus);
-// All attached observers are automatically notified
-```
-
-**Observers:**
-- Customer App (sends push notifications to customer)
-- Delivery Partner App (notifies delivery partner)
-
----
-
-## Database Schema
-
-### **Key Tables**
-
-1. **users** - User profiles with roles
-2. **products** - Product catalog with inventory
-3. **carts** & **cart_items** - Shopping cart
-4. **orders** & **order_items** - Order management
-5. **deliveries** - Delivery assignments and tracking
-6. **order_tracking** - Order status history
-7. **discounts** - Discount codes and offers
-8. **wallet_transactions** - Wallet transactions
-
-### **To Set Up Database:**
-
-```bash
-mysql -u root -p < DATABASE_SCHEMA.sql
-```
-
----
-
-## API Endpoints
-
-### **Module 4: User & Authentication**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/users/register` | Register new user |
-| POST | `/api/users/login` | User login (JWT) |
-| GET | `/api/users/{userId}` | Get user profile |
-| GET | `/api/users/delivery-partners` | Get all delivery partners |
-| PUT | `/api/users/{userId}` | Update user profile |
-
-### **Module 1: Inventory & Catalog**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/products/add` | Add new product |
-| GET | `/api/products/{productId}` | Get product by ID |
-| GET | `/api/products/search?keyword=` | Search products |
-| GET | `/api/products/category/{category}` | Get by category |
-| GET | `/api/products/available` | Get available products |
-| PUT | `/api/products/{productId}/stock` | Update stock |
-| GET | `/api/products/admin/low-stock` | Low stock products |
-
-### **Module 2: Cart & Orders**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/cart/{userId}` | Get user cart |
-| POST | `/api/cart/{userId}/add/{productId}` | Add to cart |
-| DELETE | `/api/cart/{userId}/remove/{productId}` | Remove from cart |
-| PUT | `/api/cart/{userId}/update/{productId}` | Update quantity |
-| POST | `/api/orders/create` | Create order |
-| GET | `/api/orders/{orderId}` | Get order details |
-| GET | `/api/orders/history/{userId}` | Order history |
-| GET | `/api/orders/{orderId}/tracking` | Order tracking |
-
-### **Module 3: Delivery & Tracking**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/delivery/assign` | Assign delivery partner |
-| PUT | `/api/delivery/{deliveryId}/status` | Update status |
-| PUT | `/api/delivery/{deliveryId}/location` | Update location |
-| GET | `/api/delivery/partner/{partnerId}` | Partner deliveries |
-| GET | `/api/delivery/active` | Active deliveries |
-
-### **Module 4: Wallet**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/wallet/{userId}/add` | Add to wallet |
-| GET | `/api/wallet/{userId}/balance` | Check balance |
-| GET | `/api/wallet/{userId}/transactions` | Transaction history |
-
----
-
-## Running the Application
-
-### **Prerequisites**
-- Java 17+
-- MySQL 8.0+
-- Maven 3.6+
-
-### **Setup Steps**
-
-1. **Clone the project**
-```bash
-cd /Users/kanakgoyal/Desktop/ooad\ mini\ project
-```
-
-2. **Create database**
-```bash
-mysql -u root -p < DATABASE_SCHEMA.sql
-```
-
-3. **Configure application.properties**
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/quick_commerce
-spring.datasource.username=root
-spring.datasource.password=YOUR_PASSWORD
-```
-
-4. **Build and run**
-```bash
-mvn clean install
+```powershell
 mvn spring-boot:run
 ```
 
-5. **Access application**
-- API Base URL: `http://localhost:8080/api`
-- Swagger UI: `http://localhost:8080/swagger-ui.html`
+### Access the application
 
----
+- Home page: `http://localhost:8080/`
+- H2 console: `http://localhost:8080/h2-console`
 
-## Key Features by Module
+## Web Pages
 
-### **Module 1: INVENTORY & CATALOG (Member 1)**
+These routes redirect to the static HTML pages included in the project:
 
-**Major Feature: Stock Management**
-- Real-time stock updates
-- Out-of-stock logic with automatic availability toggle
-- Low stock alerts
-- Stock validation before adding to cart
+- `/`
+- `/register`
+- `/login`
+- `/products`
+- `/cart`
+- `/orders`
+- `/deliveries`
 
-**Minor Feature: Search & Suggestions**
-- Product search by keyword
-- Search accepts partial matches
-- Category and subcategory filtering
+## API Endpoints
 
-### **Module 2: ORDER & CART (Member 2)**
+Note: the app does not use an `/api` prefix right now. Routes begin directly with `/users`, `/products`, `/cart`, `/orders`, `/delivery`, and `/wallet`.
 
-**Major Feature: Order Processing**
-- Cart management with stock validation
-- Price calculation with taxes (5%)
-- Discount application (Multiple discount types)
-- Delivery charge calculation
-- Order creation and confirmation
+### User and Authentication
 
-**Minor Feature: Order History**
-- Complete order history per customer
-- One-click reorder functionality
-- Order status tracking
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/users/register` | Register a new user |
+| POST | `/users/login` | Login and receive JWT-related response data |
+| GET | `/users/{userId}` | Get user profile |
+| PUT | `/users/{userId}` | Update user profile |
+| GET | `/users/delivery-partners` | List delivery partners |
+| GET | `/users/admin/all-users` | List all users |
+| POST | `/users/verify-delivery-partner/{deliveryPartnerId}` | Verify a delivery partner |
 
-### **Module 3: DELIVERY & TRACKING (Member 3)**
+### Product Catalog
 
-**Major Feature: Dispatch System**
-- Automatic delivery partner assignment
-- ETA calculation using Haversine formula
-- Distance calculation between coordinates
-- Estimated delivery time: Distance/Speed + Buffer
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/products/add` | Add a product |
+| GET | `/products/{productId}` | Get product by ID |
+| GET | `/products/search?keyword=milk` | Search products |
+| GET | `/products/category/{category}` | Filter by category |
+| GET | `/products/subcategory/{subcategory}` | Filter by subcategory |
+| GET | `/products/available` | List available products |
+| PUT | `/products/{productId}/stock?newStock=10` | Update stock |
+| GET | `/products/admin/low-stock` | List low-stock products |
 
-**Minor Feature: Live Status Updates**
-- Order status transitions (Packing → Out for Delivery → Delivered)
-- Real-time location tracking
-- Delay detection and notifications
-- Observer pattern for instant notifications
+### Cart
 
-### **Module 4: USER & PROFILE (Member 4)**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/cart/{userId}` | Get cart |
+| POST | `/cart/{userId}/add/{productId}?quantity=1` | Add item to cart |
+| DELETE | `/cart/{userId}/remove/{productId}` | Remove item from cart |
+| PUT | `/cart/{userId}/update/{productId}?newQuantity=2` | Update quantity |
+| DELETE | `/cart/{userId}/clear` | Clear cart |
+| GET | `/cart/{userId}/total` | Get cart total |
 
-**Major Feature: Authentication & RBAC**
-- Role-based access control (4 roles)
-- JWT token-based authentication
-- User factory for multi-type user creation
-- User verification for delivery partners
+### Orders
 
-**Minor Feature: Wallet & Payments**
-- Wallet balance management
-- Credit and debit transactions
-- Transaction history
-- Multiple payment methods support
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/orders/create?userId=1` | Create order from cart |
+| GET | `/orders/{orderId}` | Get order details |
+| GET | `/orders/history/{userId}` | Get order history |
+| GET | `/orders/{orderId}/tracking` | Get tracking history |
+| GET | `/orders/admin/pending` | Get pending orders |
+| POST | `/orders/reorder/{previousOrderId}?userId=1` | Re-order from a previous order |
+| POST | `/orders/{orderId}/pay?paymentMethod=UPI` | Process payment |
 
----
+### Delivery
 
-## OOAD Concepts Demonstrated
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/delivery/assign` | Assign delivery partner |
+| PUT | `/delivery/{deliveryId}/status` | Update delivery status |
+| PUT | `/delivery/{deliveryId}/location` | Update delivery location |
+| GET | `/delivery/partner/{deliveryPartnerId}` | Get deliveries for a partner |
+| GET | `/delivery/active` | List active deliveries |
 
-### **Use Cases Covered**
-1. ✅ Register and Login
-2. ✅ Browse Products
-3. ✅ Search and Filter
-4. ✅ Add to Cart
-5. ✅ Checkout with Multiple Payments
-6. ✅ Place Order
-7. ✅ Track Order Status
-8. ✅ Assign Delivery Partner
-9. ✅ Real-time Delivery Tracking
-10. ✅ Wallet Management
+### Wallet
 
-### **Actors**
-- Customer
-- Delivery Partner
-- Admin
-- Store Manager
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/wallet/{userId}/add` | Add money to wallet |
+| GET | `/wallet/{userId}/balance` | Get wallet balance |
+| GET | `/wallet/{userId}/transactions` | Get wallet transactions |
 
-### **OOAD Principles**
-- Abstraction (Abstract classes, Interfaces)
-- Encapsulation (Private fields, Getters/Setters)
-- Inheritance (Entity hierarchy)
-- Polymorphism (Strategy pattern, Factory pattern)
+## Sample Requests
 
----
+### Register a customer
 
-## Testing the APIs
-
-### **Sample API Calls**
-
-**1. Register Customer**
 ```bash
-curl -X POST http://localhost:8080/api/users/register \
+curl -X POST http://localhost:8080/users/register \
   -H "Content-Type: application/json" \
   -d '{
     "email": "customer@example.com",
@@ -491,9 +229,10 @@ curl -X POST http://localhost:8080/api/users/register \
   }'
 ```
 
-**2. Login**
+### Login
+
 ```bash
-curl -X POST http://localhost:8080/api/users/login \
+curl -X POST http://localhost:8080/users/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "customer@example.com",
@@ -501,72 +240,49 @@ curl -X POST http://localhost:8080/api/users/login \
   }'
 ```
 
-**3. Search Products**
+### Search products
+
 ```bash
-curl http://localhost:8080/api/products/search?keyword=milk
+curl "http://localhost:8080/products/search?keyword=milk"
 ```
 
-**4. Create Order**
+### Create an order
+
 ```bash
-curl -X POST http://localhost:8080/api/orders/create?userId=1 \
+curl -X POST "http://localhost:8080/orders/create?userId=1" \
   -H "Content-Type: application/json" \
   -d '{
-    "cartItems": [...],
+    "cartId": 1,
     "paymentMethod": "UPI",
-    "deliveryAddress": "Complete Address",
+    "deliveryAddress": "123 Main St",
     "deliveryCity": "Delhi",
-    "deliveryZipCode": "110001"
+    "deliveryZipCode": "110001",
+    "specialInstructions": "Leave at the door"
   }'
 ```
 
----
+## Database Notes
 
-## Deliverables for Phase 1
+- `DATABASE_SCHEMA.sql` is included in the repository.
+- The current default app configuration does not load MySQL automatically.
+- If you want to switch to MySQL, update `src/main/resources/application.properties` accordingly.
 
-This project includes:
+## Security Notes
 
-1. ✅ **Complete Source Code** with all 4 modules
-2. ✅ **Database Schema** (DATABASE_SCHEMA.sql)
-3. ✅ **MVC Architecture** (Model-View-Controller)
-4. ✅ **Design Patterns** (4 patterns implemented)
-5. ✅ **SOLID Principles** (All 5 principles)
-6. ✅ **REST APIs** (Complete CRUD operations)
-7. ✅ **Authentication & RBAC** (JWT + Role-based)
-8. ✅ **Comprehensive Documentation** (This README)
-9. ✅ **Project Structure** (Well-organized)
+- Spring Security is present in the project.
+- Passwords are encoded with BCrypt.
+- JWT service code exists for login/token generation flows.
+- The current filter chain permits all requests, so RBAC is not yet enforced at request level.
 
----
+## Limitations and Future Improvements
 
-## Future Enhancements
-
-1. Email and SMS notifications
-2. Admin dashboard
-3. Payment gateway integration (Razorpay, Stripe)
-4. Real-time map integration (Google Maps)
-5. Advanced analytics and reporting
-6. Mobile app (React Native/Flutter)
-7. GraphQL API support
-8. Microservices architecture
-
----
-
-## Contributors
-
-- Member 1: Inventory & Catalog
-- Member 2: Order & Cart
-- Member 3: Delivery & Tracking
-- Member 4: User & Profile
-
----
+- enforce authenticated and role-based access on routes
+- add Swagger or OpenAPI documentation if API docs are needed in-browser
+- add persistent database configuration profiles
+- expand automated tests
+- add admin dashboard and reporting
+- integrate external payment gateways
 
 ## License
 
 This project is for educational purposes.
-
----
-
-## Contact
-
-For questions or clarifications, refer to the code comments and documentation.
-
-**Happy Coding! 🚀**

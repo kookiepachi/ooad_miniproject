@@ -7,35 +7,51 @@
 </head>
 <body onload="appInit()">
 <header id="app-header"></header>
-<main>
+<main class="page-stack">
     <div id="alert-box"></div>
     <section class="hero">
         <h1>Fast, modern food delivery.</h1>
-        <p>Browse delicious meals, add items to your cart, and manage your orders with a sleek demo UI backed by APIs.</p>
+        <p>Browse popular dishes, build your cart in seconds, and manage orders from a clean demo app backed by Spring APIs.</p>
         <a class="hero-action" href="/products">Browse Restaurants</a>
+        <a class="hero-action" href="/register">Create Account</a>
+    </section>
+
+    <section class="summary-grid">
+        <div class="summary-card card">
+            <div class="summary-label">Demo Menu</div>
+            <div class="summary-value">7 Items</div>
+        </div>
+        <div class="summary-card card">
+            <div class="summary-label">Average Delivery</div>
+            <div class="summary-value">30 Min</div>
+        </div>
+        <div class="summary-card card">
+            <div class="summary-label">Checkout Flow</div>
+            <div class="summary-value">Live</div>
+        </div>
     </section>
 
     <section class="grid">
         <div class="card">
-            <h2>Start ordering</h2>
-            <p>Register or login to save your cart and enjoy a simple checkout flow.</p>
+            <h2>Start Ordering</h2>
+            <p>Register or login to save your cart, place orders, and unlock delivery tracking.</p>
             <a class="product-button" href="/register">Register</a>
             <a class="product-button" href="/login">Login</a>
         </div>
         <div class="card">
-            <h2>Browse restaurants</h2>
-            <p>Open the restaurant catalog and add delicious meals to your cart in one click.</p>
-            <a class="product-button" href="/products">Browse Restaurants</a>
+            <h2>Browse Restaurants</h2>
+            <p>Open the catalog and add your favorite dishes to the cart with one click.</p>
+            <a class="product-button" href="/products">Browse Menu</a>
         </div>
         <div class="card">
-            <h2>View cart</h2>
-            <p>See what you have added, remove items, and check your total price.</p>
-            <a class="product-button" href="/cart">Open Cart</a>
+            <h2>Track Orders</h2>
+            <p>Review order history, checkout details, and delivery progress in one place.</p>
+            <a class="product-button" href="/orders">View Orders</a>
         </div>
     </section>
 </main>
 <footer>
-    FastFood Delivery — API-driven food delivery platform.
+    FastFood Delivery - API-driven food delivery platform.
 </footer>
 <script src="/js/app.js"></script>
 </body>

@@ -10,25 +10,38 @@
 <main>
     <div id="alert-box"></div>
     <section class="hero">
-        <h1>Your Cart</h1>
-        <p>Review the items you added and remove them if you need to adjust the order.</p>
+        <h1>Your Shopping Cart</h1>
+        <p>Review your items and proceed to secure checkout. Fast and safe payment options available!</p>
     </section>
 
-    <section class="section">
-        <div id="cart-items"></div>
-        <div class="cart-summary">
-            <div>
-                <h2>Order summary</h2>
-                <p>Review items before checkout.</p>
-            </div>
-            <div id="cart-total">₹ 0</div>
+    <section class="cart-layout">
+        <div class="cart-panel">
+            <h2 class="section-title">Your Items</h2>
+            <div id="cart-items" class="cart-items-list"></div>
+            <button type="button" onclick="clearCart()" class="secondary-btn">Clear Cart</button>
         </div>
-        <div class="checkout-card">
-            <h2>Checkout</h2>
-            <form id="checkout-form">
+
+        <div class="checkout-panel">
+            <h2 class="section-title">Order Summary &amp; Checkout</h2>
+            <div class="summary-box">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">Rs 0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Fee:</span>
+                    <span id="delivery-fee">Rs 40</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total:</span>
+                    <span id="cart-total">Rs 0</span>
+                </div>
+            </div>
+
+            <form id="checkout-form" class="checkout-form">
                 <div class="form-group">
                     <label>Delivery Address</label>
-                    <input type="text" name="deliveryAddress" required placeholder="Street, house no.">
+                    <input type="text" name="deliveryAddress" required placeholder="Street, house no., apartment">
                 </div>
                 <div class="form-group">
                     <label>City</label>
@@ -48,23 +61,20 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Discount Code</label>
-                    <input type="text" name="discountCode" placeholder="Enter code (optional)">
+                    <label>Discount Code (Optional)</label>
+                    <input type="text" name="discountCode" placeholder="Enter promo code">
                 </div>
                 <div class="form-group">
-                    <label>Special Instructions</label>
-                    <input type="text" name="specialInstructions" placeholder="Leave at gate, call on arrival...">
+                    <label>Special Instructions (Optional)</label>
+                    <input type="text" name="specialInstructions" placeholder="Leave at gate, call on arrival, no onions...">
                 </div>
-                <div class="checkout-actions">
-                    <button type="submit">Place Order</button>
-                    <button type="button" onclick="clearCart()" class="secondary">Clear Cart</button>
-                </div>
+                <button type="submit">Place Order</button>
             </form>
         </div>
     </section>
 </main>
 <footer>
-    Quick Commerce — manage your cart in one place.
+    Quick Commerce - manage your cart in one place.
 </footer>
 <script src="/js/app.js"></script>
 </body>

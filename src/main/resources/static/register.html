@@ -9,51 +9,73 @@
 <header id="app-header"></header>
 <main>
     <div id="alert-box"></div>
-    <div class="card form-card">
-        <h1>Create an Account</h1>
-        <form id="register-form">
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" name="fullName" required>
+    <section class="form-shell">
+        <div class="form-side card">
+            <h1>Create Your Account</h1>
+            <p>Set up a customer or delivery partner profile and start using the full demo experience.</p>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <strong>Save your cart</strong>
+                    <span>Register once and keep your cart and order history tied to your account.</span>
+                </div>
+                <div class="feature-item">
+                    <strong>Delivery roles</strong>
+                    <span>Switch between customer and delivery partner flows from the same project.</span>
+                </div>
+                <div class="feature-item">
+                    <strong>Instant setup</strong>
+                    <span>No external database is needed for this local H2-powered demo.</span>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label>Phone Number</label>
-                <input type="text" name="phoneNumber" required>
-            </div>
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" name="address" placeholder="Street, House no." required>
-            </div>
-            <div class="form-group">
-                <label>Role</label>
-                <select name="role">
-                    <option value="CUSTOMER">Customer</option>
-                    <option value="DELIVERY_PARTNER">Delivery Partner</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>City</label>
-                <input type="text" name="city" required>
-            </div>
-            <div class="form-group">
-                <label>Zip Code</label>
-                <input type="text" name="zipCode" required>
-            </div>
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="/login">Login here</a>.</p>
-    </div>
+        </div>
+
+        <div class="form-card card">
+            <h1>Create an Account</h1>
+            <p>Fill in your basic details to start exploring the app.</p>
+            <form id="register-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="fullName" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required placeholder="Create password">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" name="phoneNumber" required placeholder="10-digit phone number">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="address" required placeholder="Street, house no., apartment">
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select name="role">
+                        <option value="CUSTOMER">Customer</option>
+                        <option value="DELIVERY_PARTNER">Delivery Partner</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" name="city" required placeholder="City">
+                </div>
+                <div class="form-group">
+                    <label>Zip Code</label>
+                    <input type="text" name="zipCode" required placeholder="Zip code">
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p class="muted-link">Already have an account? <a href="/login">Login here</a>.</p>
+        </div>
+    </section>
 </main>
 <footer>
-    Quick Commerce — registration is free and instant.
+    Quick Commerce - registration is free and instant.
 </footer>
 <script src="/js/app.js"></script>
 </body>

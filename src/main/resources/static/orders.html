@@ -7,16 +7,32 @@
 </head>
 <body onload="appInit()">
 <header id="app-header"></header>
-<main>
+<main class="page-stack">
     <div id="alert-box"></div>
-    <div class="card">
-        <h1>Orders</h1>
-        <p>View your past orders and order tracking details here.</p>
-    </div>
+    <section class="hero">
+        <h1>Your Orders</h1>
+        <p>Review past orders, payment methods, delivery addresses, and the current status of every purchase.</p>
+    </section>
+
+    <section class="summary-grid">
+        <div class="summary-card card">
+            <div class="summary-label">Order History</div>
+            <div class="summary-value">Live</div>
+        </div>
+        <div class="summary-card card">
+            <div class="summary-label">Tracking Status</div>
+            <div class="summary-value">Enabled</div>
+        </div>
+        <div class="summary-card card">
+            <div class="summary-label">Delivery Flow</div>
+            <div class="summary-value">Connected</div>
+        </div>
+    </section>
+
     <div id="order-history"></div>
 </main>
 <footer>
-    FastFood Delivery — track your orders and delivery status.
+    FastFood Delivery - track your orders and delivery status.
 </footer>
 <script src="/js/app.js"></script>
 </body>
